@@ -1,13 +1,19 @@
-FROM node:alpine
+# Use uma imagem Node.js como base para construir o frontend
+FROM node:latest 
 
-WORKDIR  /user/api
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /app
 
+# Copie o package.json e o package-lock.json para o diretório de trabalho
 COPY package.json ./
 
-RUN npm install 
+# Instale as dependências do projeto
+RUN npm install
 
-COPY  . .
+# Copie todo o código fonte para o diretório de trabalho
+COPY . .
 
-EXPOSE 3333
+EXPOSE 8080
 
+# O comando de inicialização do Nginx é gerenciado automaticamente pela imagem base do Nginx e não precisa ser especificado explicitamente.
 CMD ["npm","start"]

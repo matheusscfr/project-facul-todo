@@ -32,7 +32,7 @@ const [onEdit, setOnEdit] = useState(null);
 
 const getUsers = async () => {
   try {
-    const res = await axios.get("http://localhost:8800");
+    const res = await axios.get("http://localhost:8800/");
     setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
   } catch (error) {
     toast.error(error);
@@ -49,7 +49,7 @@ useEffect(() => {
     <Container>
     <Title>Usuarios</Title>
     <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
-    <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
+    <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} getUsers={getUsers} />
     </Container>
     <ToastContainer autoClose={3000}/>
     <GlobalStyle/>

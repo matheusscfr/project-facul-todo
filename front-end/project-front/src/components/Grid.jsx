@@ -38,23 +38,25 @@ export const Td = styled.td`
     width: ${(props) => (props.width ? props.width : "auto")};
 
     @media (max-width:500px) {
-        ${(props) => props.onlyWeb && "display:none"}
+        ${(props) => props.onlyWeb && "display:none"}  
     }
     
 `;
 
-const Grid = ({users, setUsers, setOnEdit}) => {
+const Grid = ({users, setUsers, setOnEdit, getUsers}) => {
 
     const handleEdit = (item) => {
         setOnEdit(item);
     }
 
-    const handleDelete = async (id) => {
-        await axios.delete("http://localhost:8800/" + id).then(({data})=> {
-            const newArray = users.filter((user) => user.id !== id);
+    const handleDelete = async (nome) => {
+        await axios.delete("http://localhost:8800/" + nome).then(({data})=> {
+            const newArray = users.filter((nome) => users.nome !== nome);
 
             setUsers(newArray);
-            toast.success(data);
+            toast.success(nome + ", foi deletado da base.");
+            getUsers();
+
         }).catch(({data}) => toast.error(data));
 
         setOnEdit(null);
@@ -83,7 +85,7 @@ const Grid = ({users, setUsers, setOnEdit}) => {
                         <FaEdit onClick={() => handleEdit(item)}/>
                     </Td>
                     <Td alignCenter width="5%">
-                        <FaTrash onClick={() => handleDelete(item.id)}/>
+                        <FaTrash onClick={() => handleDelete(item.nome)}/>
                     </Td>                   
                 </Tr>
             ))}

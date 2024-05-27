@@ -1,11 +1,13 @@
-FROM node:alpine
+FROM node:latest 
 
-WORKDIR  /user/front-end
+WORKDIR /app
 
 COPY package.json ./
 
-RUN npm install 
+RUN npm install
 
-COPY  . .
+COPY . .
 
-CMD ["npm","run","dev"]
+EXPOSE 5173 
+
+CMD ["npm","run","dev","--","--host"]
